@@ -1,7 +1,6 @@
 jmp main
 
 vetorEntrada: var #16
-
 static vetorEntrada + #0, #20
 static vetorEntrada + #1, #10
 static vetorEntrada + #2, #30
@@ -13,11 +12,11 @@ static vetorEntrada + #7, #47
 static vetorEntrada + #8, #2
 static vetorEntrada + #9, #50
 static vetorEntrada + #11, #33
-static vetorEntrada + #10, #12
-static vetorEntrada + #10, #41
-static vetorEntrada + #10, #22
-static vetorEntrada + #10, #37
-static vetorEntrada + #10, #11
+static vetorEntrada + #12, #12
+static vetorEntrada + #13, #41
+static vetorEntrada + #14, #22
+static vetorEntrada + #15, #37
+static vetorEntrada + #16, #11
 
 
 vetorSaida: var #16

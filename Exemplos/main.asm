@@ -23,7 +23,7 @@ vetorSaida: var #16
 vetorAuxiliar: var #16
 
 tam: var #1
-static tam + #0,#16
+static tam + #0, #16
 
 main:
 
