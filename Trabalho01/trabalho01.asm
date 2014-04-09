@@ -11,12 +11,13 @@ static vetorEntrada + #6, #94
 static vetorEntrada + #7, #47
 static vetorEntrada + #8, #2
 static vetorEntrada + #9, #50
-static vetorEntrada + #11, #33
-static vetorEntrada + #12, #12
-static vetorEntrada + #13, #41
-static vetorEntrada + #14, #22
-static vetorEntrada + #15, #37
-static vetorEntrada + #16, #11
+static vetorEntrada + #10, #33
+static vetorEntrada + #11, #12
+static vetorEntrada + #12, #41
+static vetorEntrada + #13, #22
+static vetorEntrada + #14, #37
+static vetorEntrada + #15, #11
+static vetorEntrada + #16, #29
 
 
 vetorSaida: var #16
@@ -38,20 +39,20 @@ main:
 	loadn R1,#0
 	call printVetor
 
-	mov R1,R2
-	loadn R2,#vetorSaida
+	;mov R1,R2
+	;loadn R2,#vetorSaida
 
 	push R0
 	push R1
 	push R2
 
-	mov R0, R2
+	;mov R0, R2
 
-	call merge
+	;call merge
 
-	mov R1, R2
-	loadn R1, #80
-	call printVetor
+	;mov R1, R2
+	;loadn R1, #80
+	;call printVetor
 
 	pop R2
 	pop R1
