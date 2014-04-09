@@ -27,9 +27,9 @@ static tam + #0,#16
 
 main:
 
-loadn r0,#tam;	r0 recebe a posição da variael tamanho
+loadn r0,#tam;	r0 recebe a posiÃ§Ã£o da variael tamanho
 loadi r1,r0;	r1 recebe o valor contido em tamanho
-loadn r0,#vetorEntrada;	r0 recebe o início do vetor a ser ordenado
+loadn r0,#vetorEntrada;	r0 recebe o inÃ­cio do vetor a ser ordenado
 
 ;imprime o vetor original
 mov R2, R1
@@ -54,8 +54,6 @@ pop R1
 pop R0
 
 halt
-
-
 
 merge_concatena:
 ;entradas
@@ -82,8 +80,8 @@ push R5
 push R6
 push R7
 
-add R1, R1, R0  ;R1 armazena o a última posição do primeiro vetor
-add R3, R3, R2  ;R3 armazena o a última posição do segundo vetor
+add R1, R1, R0  ;R1 armazena o a Ãºltima posiÃ§Ã£o do primeiro vetor
+add R3, R3, R2  ;R3 armazena o a Ãºltima posiÃ§Ã£o do segundo vetor
 loadn R4, #vetorAuxiliar    ;Carrega o ponteiro do vetor auxiliar
 
 loadi R5, R0    ;R5 = vetor1[R0]
@@ -203,7 +201,7 @@ push R0
 push R1
 
 add R0, R0, R1
-sub R1, R3, R1  ;R1 = R3 - R1, ou seja, R3 passará a ter o valor da segunda parte do vetor
+sub R1, R3, R1  ;R1 = R3 - R1, ou seja, R3 passarÃ¡ a ter o valor da segunda parte do vetor
 call merge
 
 mov R2, R0
@@ -242,14 +240,14 @@ bubble:
 	push r4  ; vetor entrada [j-1]
 	push r5  ; vetor entrada [j]
 
-	mov r2,r0      ;r2 recebe a posição do inicio do vetor (ponteiro para o vetor)
-	add r1,r0,r1   ;r1 passa a armazenar a posição na memória do fim do vetor (posição do último elemento)
+	mov r2,r0      ;r2 recebe a posiÃ§Ã£o do inicio do vetor (ponteiro para o vetor)
+	add r1,r0,r1   ;r1 passa a armazenar a posiÃ§Ã£o na memÃ³ria do fim do vetor (posiÃ§Ã£o do Ãºltimo elemento)
 
     dec R1
 
 	bubble_loop_1:	;primeiro for (for(i=0;i<n;i++))
 
-		mov r3,r0;	r3 recebe a posição do inicio do vetor (ponteiro para o vetor)
+		mov r3,r0;	r3 recebe a posiÃ§Ã£o do inicio do vetor (ponteiro para o vetor)
 
 		bubble_loop_2:	;segundo for (for(j=0;j<n-1;j++))
 
@@ -258,7 +256,7 @@ bubble:
 			loadi r5,r3;	r5 <- vet[j+1]
 
 			cmp r4,r5				;   comparando vet[j] com vet[j+1]
-			jel bubble_dont_swap	;   se i < j, não trocar
+			jel bubble_dont_swap	;   se i < j, nÃ£o trocar
 			dec r3					;	decrementando para arrumar o indice e trocar
 			storei r3,r5			;	armazena vet[j+1] no lugar de vet[j]
 			inc r3					;	j incrementa para (j+1)
@@ -288,7 +286,7 @@ copy_vector:
 ;R0 -   ponteiro para o vetor original
 ;R1 -   tamanho do vetor
 ;R2 -   ponteiro para o vetor destino
-;saídas
+;saÃ­das
 ;R2 -   ponteiro para o vetor destino
 
     push R0
@@ -313,25 +311,25 @@ copy_vector:
 
 print_vector:
 ;entradas
-;R0 -   posição inicial do vetor
-;R1 -   posição na tela onde será impresso o vetor
+;R0 -   posiÃ§Ã£o inicial do vetor
+;R1 -   posiÃ§Ã£o na tela onde serÃ¡ impresso o vetor
 ;R2 -   tamanho do vetor
-;saídas
-;R1 -   posição na tela após impimir o vetor
+;saÃ­das
+;R1 -   posiÃ§Ã£o na tela apÃ³s impimir o vetor
     push R0
     push R1
     push R2
     push R3
 
-    mov R3, R0      ;A função utilizada para imprimir o inteiro utiliza o registrador R0 como entrada do número, portanto o valor do inicio
-                    ;do vetor é passado para R3
+    mov R3, R0      ;A funÃ§Ã£o utilizada para imprimir o inteiro utiliza o registrador R0 como entrada do nÃºmero, portanto o valor do inicio
+                    ;do vetor Ã© passado para R3
 
     print_vector_loop:
-        loadi R0, R3    ;Carrega em R0 o valor armazenado na posição R3 da memória
-        call print_int  ;Chama a rotina de imprimir um número inteiro
-        inc R1          ;Pula um espaço entre os números impressos
-        inc R3          ;Move uma posição na memória para obter o próximo número
-        dec R2          ;Decrementa o tamanho do vetor até que todos os números sejam impressos
+        loadi R0, R3    ;Carrega em R0 o valor armazenado na posiÃ§Ã£o R3 da memÃ³ria
+        call print_int  ;Chama a rotina de imprimir um nÃºmero inteiro
+        inc R1          ;Pula um espaÃ§o entre os nÃºmeros impressos
+        inc R3          ;Move uma posiÃ§Ã£o na memÃ³ria para obter o prÃ³ximo nÃºmero
+        dec R2          ;Decrementa o tamanho do vetor atÃ© que todos os nÃºmeros sejam impressos
         jnz print_vector_loop
 
     pop R3
@@ -345,16 +343,16 @@ print_vector:
 
 print_int:  ;Imprime um inteiro entre -65354 e 65355
 ;argumentos de entrada:
-;R0 -   número a ser impresso
-;R1 -   posição inicial do vídeo onde o número será impresso
-;argumentos de saída
-;R1 -   posição final de saída no vídeo logo após a impressão do inteiro
+;R0 -   nÃºmero a ser impresso
+;R1 -   posiÃ§Ã£o inicial do vÃ­deo onde o nÃºmero serÃ¡ impresso
+;argumentos de saÃ­da
+;R1 -   posiÃ§Ã£o final de saÃ­da no vÃ­deo logo apÃ³s a impressÃ£o do inteiro
 
     ;R0 -   Valor total do inteiro a ser impresso
-    ;R2 -   caractere do número a ser impresso
-    ;R3 -   Recebe o valor 10 para trabalhar com os dígitos do número
-    ;R4 -   Recebe o valor 48 a ser somado para um dígito assumir o valor de seu caractere
-    ;R5 -   Guarda o número de dígitos que foram armazenados na pilha
+    ;R2 -   caractere do nÃºmero a ser impresso
+    ;R3 -   Recebe o valor 10 para trabalhar com os dÃ­gitos do nÃºmero
+    ;R4 -   Recebe o valor 48 a ser somado para um dÃ­gito assumir o valor de seu caractere
+    ;R5 -   Guarda o nÃºmero de dÃ­gitos que foram armazenados na pilha
 
     ;armazena os valores dos registradores a serem utilizados
     push R0
@@ -363,25 +361,25 @@ print_int:  ;Imprime um inteiro entre -65354 e 65355
     push R4
     push R5
 
-    ;Atribuições de números chave para o processo
-    loadn R3, #10       ;R3 recebe 10 pois o número recebido estará na base 10
-    loadn R4, #48       ;R4 recebe 48 pois serão impressos números, e o código ASCII de um número (de 0 a 9) é o seu valor + 48
-    loadn R5, #0        ;R5 indicará o número de dígitos empilhados. Será utilizada a pilha do processador
+    ;AtribuiÃ§Ãµes de nÃºmeros chave para o processo
+    loadn R3, #10       ;R3 recebe 10 pois o nÃºmero recebido estarÃ¡ na base 10
+    loadn R4, #48       ;R4 recebe 48 pois serÃ£o impressos nÃºmeros, e o cÃ³digo ASCII de um nÃºmero (de 0 a 9) Ã© o seu valor + 48
+    loadn R5, #0        ;R5 indicarÃ¡ o nÃºmero de dÃ­gitos empilhados. SerÃ¡ utilizada a pilha do processador
 
     print_int_empilha_digito:
-        mod R2, R0, R3      ;R2 recebe o último dígito do número (por meio da operação de resto pela divisão por 10)
-        add R2, R2, R4      ;Soma-se R2 (48) ao R2 (dígito menos significativo de R0) para que ele passe a ter o seu valor na tabela ASCII
-        push R2             ;Empilha o valor ASCII do dígito menos significativo de R0
-        inc R5              ;Incrementa R5, pois o dígito foi armazenado na pilha
-        div R0, R0, R3      ;Reduz o número dividindo ele por
-        jnz print_int_empilha_digito  ;Continua empilhando os dígitos até o número ser reduzido à zero
+        mod R2, R0, R3      ;R2 recebe o Ãºltimo dÃ­gito do nÃºmero (por meio da operaÃ§Ã£o de resto pela divisÃ£o por 10)
+        add R2, R2, R4      ;Soma-se R2 (48) ao R2 (dÃ­gito menos significativo de R0) para que ele passe a ter o seu valor na tabela ASCII
+        push R2             ;Empilha o valor ASCII do dÃ­gito menos significativo de R0
+        inc R5              ;Incrementa R5, pois o dÃ­gito foi armazenado na pilha
+        div R0, R0, R3      ;Reduz o nÃºmero dividindo ele por
+        jnz print_int_empilha_digito  ;Continua empilhando os dÃ­gitos atÃ© o nÃºmero ser reduzido Ã  zero
 
     print_int_desempilha_digito:
-        pop R2;                 ;Desempilha o dígito a ser impresso
-        outchar R2, R1          ;Imprime o dígito desempilhado
-        inc R1                  ;Incrementa a posição do vídeo onde será impresso o próximo dígito
+        pop R2;                 ;Desempilha o dÃ­gito a ser impresso
+        outchar R2, R1          ;Imprime o dÃ­gito desempilhado
+        inc R1                  ;Incrementa a posiÃ§Ã£o do vÃ­deo onde serÃ¡ impresso o prÃ³ximo dÃ­gito
         dec R5                  ;Decrementa o contador do topo da pilha
-        jnz print_int_desempilha_digito   ;Se ainda tem dígitos empilhados na pilha, continua desempilhando
+        jnz print_int_desempilha_digito   ;Se ainda tem dÃ­gitos empilhados na pilha, continua desempilhando
 
     ;retorna os valores anteriores dos registradores utilizados
     pop R5
@@ -396,15 +394,15 @@ print_int:  ;Imprime um inteiro entre -65354 e 65355
 
 print_str:  ;Imprime uma string dada
 ;argumentos de entrada:
-;R0 -   posição inicial da string
-;R1 -   posição inicial do vídeo onde a string será impressa
-;argumentos de saída
-;R1 -   posição final de saída no vídeo logo após a string (posição no vídeo do '\0' da string)
+;R0 -   posiÃ§Ã£o inicial da string
+;R1 -   posiÃ§Ã£o inicial do vÃ­deo onde a string serÃ¡ impressa
+;argumentos de saÃ­da
+;R1 -   posiÃ§Ã£o final de saÃ­da no vÃ­deo logo apÃ³s a string (posiÃ§Ã£o no vÃ­deo do '\0' da string)
 
-    ;R0 -   é a posição inicial da string passado como parâmetro
-    ;R1 -   é a posição inicial da tela onde a string será impressa
-    ;R2 -   é o caractere na string a ser impresso
-    ;R3 -   é o valor de '\0' no código ASCII utilizado para o fim do loop
+    ;R0 -   Ã© a posiÃ§Ã£o inicial da string passado como parÃ¢metro
+    ;R1 -   Ã© a posiÃ§Ã£o inicial da tela onde a string serÃ¡ impressa
+    ;R2 -   Ã© o caractere na string a ser impresso
+    ;R3 -   Ã© o valor de '\0' no cÃ³digo ASCII utilizado para o fim do loop
 
     ;armazena os valores dos registradores a serem utilizados
     push R0
@@ -413,16 +411,16 @@ print_str:  ;Imprime uma string dada
 
     loadn R3, #0    ;Atribui o valore de '\0' em R3
     print_str_loop:
-        loadi R2, R0        ;R2 recebe o caractere na posição [R0] da string
+        loadi R2, R0        ;R2 recebe o caractere na posiÃ§Ã£o [R0] da string
         cmp R2, R3          ;Checa se chegou ao fim do vetor ('\0')
-        jeq fim_de_string   ;Se chegou ao fim da string, então sai do loop
-        ;Se não chegou ao fim da string, continua neste loop
+        jeq fim_de_string   ;Se chegou ao fim da string, entÃ£o sai do loop
+        ;Se nÃ£o chegou ao fim da string, continua neste loop
         outchar R2, R1      ;imprime o caractere desejado na tela
-        inc R0              ;incrementa a posição da string que terá o caractere impresso
-        inc R1              ;incrementa a posição na tela onde será impresso o próximo caractere
+        inc R0              ;incrementa a posiÃ§Ã£o da string que terÃ¡ o caractere impresso
+        inc R1              ;incrementa a posiÃ§Ã£o na tela onde serÃ¡ impresso o prÃ³ximo caractere
         jmp print_str_loop            ;continua no loop
 
-    fim_de_string:  ;ao chegar no fim da string, o loop é quebrado
+    fim_de_string:  ;ao chegar no fim da string, o loop Ã© quebrado
 
     ;retorna os valores anteriores dos registradores utilizados
     pop R3
