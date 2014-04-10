@@ -17,7 +17,6 @@ static vetorEntrada + #12, #41
 static vetorEntrada + #13, #22
 static vetorEntrada + #14, #37
 static vetorEntrada + #15, #11
-static vetorEntrada + #16, #29
 
 
 vetorSaida: var #16
@@ -28,7 +27,7 @@ static tam + #0, #16   		; tamanho de vetor
 
 main:
 
-	loadn R1,#tam 				;r0 recebe a posição da variavel tamanho
+	loadn R0,#tam 				;r0 recebe a posição da variavel tamanho
 	loadi R1,R0 				;r1 recebe o valor de r0, no caso de 16
 	loadn R0,#vetorEntrada      ;r0 recebe a posição do vetor a ser ordenado
 
@@ -39,20 +38,27 @@ main:
 	loadn R1,#0
 	call printVetor
 
-	;mov R1,R2
-	;loadn R2,#vetorSaida
+	mov R1,R2
+	loadn R2,#vetorSaida
+	call copiaVetor
+
+	;mov R0, R2
+	;loadn R1, #240
+	;loadn R2, #16
+	;call printVetor
 
 	;push R0
 	;push R1
 	;push R2
 
-	;mov R0, R2
+	mov R0, R2
 
-	;call merge
+	call merge
 
-	;mov R1, R2
-	;loadn R1, #80
-	;call printVetor
+	mov R0, R2
+	loadn R1, #80
+	loadn R2, #16
+	call printVetor
 
 	;pop R2
 	;pop R1
@@ -67,7 +73,7 @@ halt
 
 
 ;----------------------------------------------------
-;	copiaVetor(R0,R1,R2) -> R2 
+;	copiaVetor(R0,R1,R2) -> R2
 ; 	copia um vetor de um registrador para o outro
 
 ;	entradas:
@@ -85,58 +91,61 @@ copiaVetor:
 	push R1
 	push R2
 	push R3
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> b2970ba5be92e2a4cac42792bdf577be3864aa5e
 	copiaVetor_loop:
 
-		loadi R3,R0 
-		loadi R2,R3
+		loadi R3,R0
+		storei R2,R3
 		inc R0
 		inc R2
 		dec R1
 		jnz copiaVetor_loop
 
-	pop R0
-	pop R1
-	pop R2
 	pop R3
+	pop R2
+	pop R1
+	pop R0
 
 rts
-	
+
 
 ;----------------------------------------------------
-;	printNumero(R0,R1) 
-; 	printa um numero inteiro r0 comecando pel posicao r1 na tela 
+;	printNumero(R0,R1)
+; 	printa um numero inteiro r0 comecando pel posicao r1 na tela
 
 ;	entradas:
 ;	R0 numero inteiro entre -65534 e 65535 (inteiro 16 bits com sinal)
 ;   R1 posicao da tela onde sera impresso
-;   
+;
 ;
 ;   saida
-;   printa o numero na tela
+;   R1 e printa o numero na tela
 ;----------------------------------------------------
 
 printNumero:
 
 	push R0
-	push R1
 	push R2
 	push R3
 	push R4
 	push R5
 
-	loadn R3, #10    				; atribuindo base 10 para a multiplicação 
+	loadn R3, #10    				; atribuindo base 10 para a multiplicação
 	loadn R4, #48    				; variavel auxiliar a ser somada para se obter o numero ASCII
-	loadn R5, #0     				; numero de casas decimais empilhadas 
+	loadn R5, #0     				; numero de casas decimais empilhadas
 
 	printNumero_empilha:
 
-		mod R2, R0, R3   				; Pega o digito mais significativo 
+		mod R2, R0, R3   				; Pega o digito mais significativo
 		add R2, R2, R4   				; Soma 48 para obter o numero ASCII correto
-		push R2			
+		push R2
 		inc R5
-		div R0, R0, R3   				; Divide por 10 para pegar o proximo digito 
-		jnz printNumero_empilha 	; Continua empilhando até o resultado da divisao ser 0	
+		div R0, R0, R3   				; Divide por 10 para pegar o proximo digito
+		jnz printNumero_empilha 	; Continua empilhando até o resultado da divisao ser 0
 
 
 	printNumero_desempilha:
@@ -145,27 +154,26 @@ printNumero:
 		outchar R2, R1
 		inc R1
 		dec R5
-		jnz printNumero_desempilha 
+		jnz printNumero_desempilha
 
 	pop R5
 	pop R4
 	pop R3
 	pop R2
-	pop R1
 	pop R0
 
 
 rts
 
-	
+
 ;----------------------------------------------------
-;	printVetor(R0,R1,R2) 
-; 	printa um vetor R0 de tamanho R2 na posicao R1 da tela 
+;	printVetor(R0,R1,R2)
+; 	printa um vetor R0 de tamanho R2 na posicao R1 da tela
 
 ;	entradas:
 ;	R0 posicao inicial do vetor
 ;   R1 posicao da tela onde sera impresso
-;   R2 tamanho do vetor   
+;   R2 tamanho do vetor
 ;
 ;   saida
 ;   printa o numero na tela começando na posicao R1
@@ -190,7 +198,7 @@ printVetor:
 		dec R2
 		jnz printVetor_loop
 
-	pop R3		
+	pop R3
 	pop R2
 	pop R1
 	pop R0
@@ -198,8 +206,8 @@ printVetor:
 rts
 
 ;----------------------------------------------------
-;	printString(R0,R1) 
-; 	printa uma string apontada R0 na posicao R1 da tela 
+;	printString(R0,R1)
+; 	printa uma string apontada R0 na posicao R1 da tela
 ;
 ;	entradas:
 ;	R0 posicao inicial do vetor
@@ -241,12 +249,12 @@ printString:
 rts
 
 ;----------------------------------------------------
-;	bubble(R0,R1) -> R0 
-; 	printa um vetor R0 de tamanho R2 na posicao R1 da tela 
+;	bubble(R0,R1) -> R0
+; 	printa um vetor R0 de tamanho R2 na posicao R1 da tela
 
 ;	entradas:
 ;	R0 posicao inicial do vetor a ser ordenado
-;   R1 tamanho do vetor 
+;   R1 tamanho do vetor
 ;
 ;   saida
 ;   R0 é o novo vetor organizado
@@ -302,13 +310,13 @@ rts
 
 
 ;----------------------------------------------------
-;	merge(R0,R1) -> R0 
+;	merge(R0,R1) -> R0
 ; 	ordena um vetor em ordem crescente usando
 ;	mergesort recursivo
 ;
 ;	entradas:
 ;	R0 ponteiro para o vetor a ser organizado
-;   R1 tamanho do vetor 
+;   R1 tamanho do vetor
 ;
 ;   saida
 ;   R0 é o novo vetor ordenado
@@ -317,14 +325,14 @@ rts
 
 merge:
 
-	push R0	
+	push R0
 	push R1
-	push R2	
-	push R3	
-	push R4	
-	push R5	
+	push R2
+	push R3
+	push R4
+	push R5
 	push R6
-	push R7	
+	push R7
 
 
 	loadn R2,#4 	; Carregando para R2 o valor minimo do vetor para iniciar o bubble sort
@@ -334,9 +342,9 @@ merge:
 
 	;Caso o tamanho do vetor ainda seja maior que 4, continua o merge
 
-	mov R3,R1          ; Carrega em R3 o tamanho do vetor contido em R1	
+	mov R3,R1          ; Carrega em R3 o tamanho do vetor contido em R1
 	shiftr0 R1, #1     ; Dividindo R1 por 2 e pegando a parte mais significativa
-	
+
 
 	call merge 		   ; Chama o merge para a primeira metade
 
@@ -370,13 +378,13 @@ merge:
 rts
 
 ;----------------------------------------------------
-;	mergeSort(R0,R1) -> R0 
+;	mergeSort(R0,R1) -> R0
 ; 	Recebe 2 vetores e os ordena devolvendo um vetor só ordenado
-;	
+;
 ;
 ;	entradas:
 ;	R0 ponteiro para o primeiro vetor a ser organizado
-;   R1 tamanho do primeiro vetor 
+;   R1 tamanho do primeiro vetor
 ;   R2 ponteiro para o segundo vetor a ser organizado
 ;	R3 tamanho do segundo vetor
 ;
@@ -389,7 +397,7 @@ rts
 ;   R0 é o novo vetor ordenado
 ;----------------------------------------------------
 
-mergeSort:	
+mergeSort:
 
 	push R0
 	push R1
@@ -405,7 +413,7 @@ mergeSort:
 	add R3, R3, R2     ; R3 = R3 + R2 armazena a última posição do segundo vetor
 
 	loadn R4,#vetorAuxiliar
-	
+
 	loadi R5,R0       ; R5 = vetor1[R0]
 	loadi R6,R2       ; R6 = vetor2[R2]
 
@@ -447,7 +455,7 @@ mergeSort:
 			jmp mergeSort_preenche_vetor1
 
 		mergeSort_preenche_vetor2:
-		
+
 			loadi  R5, R0
 			storei R4, R5
 			inc R4
@@ -456,10 +464,10 @@ mergeSort:
 			jeq mergeSort_fim
 			jmp mergeSort_preenche_vetor2
 
-	
+
 
 	mergeSort_fim:
-			
+
 		pop R7
 		pop R6
 		pop R5
@@ -483,6 +491,7 @@ mergeSort:
 		pop R1
 		pop R0
 
+<<<<<<< HEAD
 rts
 
 
@@ -490,3 +499,6 @@ rts
 
 
 
+=======
+		rts
+>>>>>>> b2970ba5be92e2a4cac42792bdf577be3864aa5e
