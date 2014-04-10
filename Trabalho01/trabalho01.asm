@@ -32,7 +32,6 @@ main:
 	loadn R0,#vetorEntrada      ;r0 recebe a posição do vetor a ser ordenado
 
 
-
 	;imprime o vetor original
 
 	mov R2, R1
