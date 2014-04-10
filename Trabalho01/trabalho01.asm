@@ -42,9 +42,9 @@ main:
 	;mov R1,R2
 	;loadn R2,#vetorSaida
 
-	push R0
-	push R1
-	push R2
+	;push R0
+	;push R1
+	;push R2
 
 	;mov R0, R2
 
@@ -54,9 +54,9 @@ main:
 	;loadn R1, #80
 	;call printVetor
 
-	pop R2
-	pop R1
-	pop R0
+	;pop R2
+	;pop R1
+	;pop R0
 
 halt
 
@@ -86,8 +86,6 @@ copiaVetor:
 	push R2
 	push R3
 	
-
-
 	copiaVetor_loop:
 
 		loadi R3,R0 
@@ -181,7 +179,7 @@ printVetor:
 	push R2
 	push R3
 
-	mov R3,R0    		   ; Carrega a posicao inicial do vetor para ser usada na funcao de printNumero
+	mov R3, R0    		   ; Carrega a posicao inicial do vetor para ser usada na funcao de printNumero
 
 	printVetor_loop:
 
@@ -356,7 +354,7 @@ merge:
 	pop R1
 	pop R0
 
-	;call mergeSort
+	call mergeSort
 
 	mergeFim:
 
@@ -485,7 +483,7 @@ mergeSort:
 		pop R1
 		pop R0
 
-		rts
+rts
 
 
 
