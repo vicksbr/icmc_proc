@@ -91,11 +91,7 @@ copiaVetor:
 	push R1
 	push R2
 	push R3
-<<<<<<< HEAD
-	
-=======
 
->>>>>>> b2970ba5be92e2a4cac42792bdf577be3864aa5e
 	copiaVetor_loop:
 
 		loadi R3,R0
@@ -491,7 +487,6 @@ mergeSort:
 		pop R1
 		pop R0
 
-<<<<<<< HEAD
 rts
 
 
@@ -499,6 +494,3 @@ rts
 
 
 
-=======
-		rts
->>>>>>> b2970ba5be92e2a4cac42792bdf577be3864aa5e
