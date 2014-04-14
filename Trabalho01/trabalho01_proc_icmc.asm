@@ -1,16 +1,22 @@
 jmp main
 
+
+;----------------------------------
+;	Variaveis
+;----------------------------------
+
+
 vetorEntrada: var #16
-static vetorEntrada + #0, #20
-static vetorEntrada + #1, #10
-static vetorEntrada + #2, #30
-static vetorEntrada + #3, #5
-static vetorEntrada + #4, #70
-static vetorEntrada + #5, #100
-static vetorEntrada + #6, #94
-static vetorEntrada + #7, #47
-static vetorEntrada + #8, #2
-static vetorEntrada + #9, #50
+static vetorEntrada + #0,  #20
+static vetorEntrada + #1,  #10
+static vetorEntrada + #2,  #30
+static vetorEntrada + #3,  #5
+static vetorEntrada + #4,  #70
+static vetorEntrada + #5,  #100
+static vetorEntrada + #6,  #94
+static vetorEntrada + #7,  #47
+static vetorEntrada + #8,  #2
+static vetorEntrada + #9,  #50
 static vetorEntrada + #10, #33
 static vetorEntrada + #11, #12
 static vetorEntrada + #12, #41
@@ -18,41 +24,62 @@ static vetorEntrada + #13, #22
 static vetorEntrada + #14, #37
 static vetorEntrada + #15, #11
 
-
-vetorSaida: var #16
-vetorAuxiliar: var #16
+vetorSaida: var #16				;   vetor onde sera guardado a saida
+vetorAuxiliar: var #16			;	vetor auxiliar 
 
 tam: var #1
-static tam + #0, #16   		    ;	tamanho de vetor
+static tam + #0, #16 		    ;	tamanho de vetor
+
+erroStr: string "O valor do vetor eh maior que 16"
+
 
 main:
 
+
 	loadn R0,#tam 				;	r0 recebe a posição da variavel tamanho
 	loadi R1,R0 				;	r1 recebe o valor de r0, no caso de 16
+	
+	loadn R0,#16
+	cmp  R1,R0
+	jgr  erro  
+
+	
 	loadn R0,#vetorEntrada      ;	r0 recebe a posição do vetor a ser ordenado
-
-
-							    ;	imprime o vetor original
-
-	mov R2, R1
+							    
+	mov R2, R1 					;	imprime o vetor original
 	loadn R1,#0
 	call printVetor
 
-	mov R1,R2
+	mov R1,R2 					;	passa para r2 o endereço para vetorSaida e copia 
 	loadn R2,#vetorSaida
-	call copiaVetor
+	call copiaVetor             
 
 
-	mov R0, R2
+	mov R0, R2 					;	passando pra r0 o ponteiro para o começo do vetorSaida
 
-	call merge
+	
+	call merge                  ;	chama o merge
 
 	mov R0, R2
 	loadn R1, #80
 	loadn R2, #16
-	call printVetor
+	call printVetor             ;	printa a saida
 
-halt
+	loadn R0,#16
+	loadn R1,#tam
+	cmp  R1,R0
+	jgr endFim  
+	
+	
+	erro:
+
+		loadn R0,#erroStr
+		loadn R1,#0
+		call printString
+		
+	
+	endFim:
+	halt
 
 
 ;----------------------------------
@@ -393,19 +420,19 @@ mergeSort:
 	push R7
 
 
-	add R1, R1, R0     ;	R1 = R1 + R0 armazena a última posição do primeiro vetor
-	add R3, R3, R2     ; 	R3 = R3 + R2 armazena a última posição do segundo vetor
+	add R1, R1, R0     		;	R1 = R1 + R0 armazena a última posição do primeiro vetor
+	add R3, R3, R2     		; 	R3 = R3 + R2 armazena a última posição do segundo vetor
 
-	loadn R4,#vetorAuxiliar
+	loadn R4,#vetorAuxiliar	
 
-	loadi R5,R0        ;	R5 = vetor1[R0]
-	loadi R6,R2        ;	R6 = vetor2[R2]
+	loadi R5,R0        		;	R5 = vetor1[R0]
+	loadi R6,R2        		;	R6 = vetor2[R2]
 
 	mergeSort_loop:
 
-		cmp R5,R6
-		jle mergeSort_cmp_menor
-		jmp mergeSort_cmp_maior
+		cmp R5,R6				
+		jle mergeSort_cmp_menor		;	Se R5 < R6 entao pula para cmp_menor
+		jmp mergeSort_cmp_maior		;   Se R5 > R6 entao pula para cmp_maior
 
 		mergeSort_cmp_menor:
 
@@ -413,8 +440,8 @@ mergeSort:
 			inc R0
 			inc R4
 			cmp R0, R1
-			jeq mergeSort_preenche_vetor1
-			loadi R5, R0
+			jeq mergeSort_preenche_vetor1	;	Se não houver mais numeros no segundo vetor, preenche tudo com   
+			loadi R5, R0 					;   o vetor1
 			jmp mergeSort_loop
 
 		mergeSort_cmp_maior:
@@ -423,12 +450,12 @@ mergeSort:
 			inc R2
 			inc R4
 			cmp R2, R3
-			jeq mergeSort_preenche_vetor2
-			loadi R6, R2
+			jeq mergeSort_preenche_vetor2	; Se não houver mais numeros no primeiro vetor, preenche tudo
+			loadi R6, R2 					; com o vetor2
 			jmp mergeSort_loop
 
 
-		mergeSort_preenche_vetor1:
+		mergeSort_preenche_vetor1:			; Preenche o resto do vetor com o vetor1 
 
 			loadi R6, R2
 			storei R4, R6
@@ -438,7 +465,7 @@ mergeSort:
 			jeq mergeSort_fim
 			jmp mergeSort_preenche_vetor1
 
-		mergeSort_preenche_vetor2:
+		mergeSort_preenche_vetor2:			; Preenche o resto do vetor com o vetor2
 
 			loadi  R5, R0
 			storei R4, R5
@@ -452,7 +479,7 @@ mergeSort:
 
 	mergeSort_fim:
 
-		pop R7
+		pop R7						;	dando pop em tudo que foi usado
 		pop R6
 		pop R5
 		pop R4
@@ -461,14 +488,14 @@ mergeSort:
 		pop R1
 		pop R0
 
-		push R0
+		push R0 					; dando push para chamar o copia vetor
 		push R1
-		push r2
+		push R2
 
 		mov R2, R0
 		add R1, R1, R3
 
-		loadn R0, #vetorAuxiliar
+		loadn R0, #vetorAuxiliar	
 		call copiaVetor
 
 		pop R2
